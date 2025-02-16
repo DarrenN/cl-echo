@@ -3,7 +3,13 @@
   :author "DarrenN"
   :mailto "info@v25media.com"
   :license "MIT"
-  :depends-on ("hunchentoot")
+  :depends-on (:alexandria
+               :bordeaux-threads
+               :clack
+               :lack
+               :log4cl
+               :njson/jzon
+               :serapeum)
   :components ((:module "src"
                 :components
                 ((:file "main"))))
