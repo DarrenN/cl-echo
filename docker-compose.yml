@@ -1,0 +1,12 @@
+services:
+  app:
+    container_name: cl-echo
+    build:
+      dockerfile: docker/Dockerfile-app
+      context: .
+    ports:
+      - "5001:5001"
+    tty: true
+    volumes:
+      - .:/app:ro
+      - /app/.qlot
