@@ -2,7 +2,7 @@ services:
   app:
     container_name: cl-echo
     build:
-      dockerfile: docker/Dockerfile-app
+      dockerfile: docker/Dockerfile-app-production
       context: .
     ports:
       - "5001:5001"

@@ -10,7 +10,8 @@
   (:import-from :uiop)
   (:export #:start-app
            #:stop-app
-           #:main))
+           #:main
+           #:*app*))
 
 (in-package #:cl-echo)
 
@@ -34,7 +35,11 @@
     :server-name (getf env :server-name)
     :server-port (getf env :server-port)
     :server-protocol (getf env :server-protocol)
-    :url-scheme (getf env :url-scheme))))
+    :url-scheme (getf env :url-scheme)
+    :env (dict
+          :app_env (uiop:getenv "APP_ENV")
+          :app_port (uiop:getenv "APP_PORT")
+          :app_server (uiop:getenv "APP_SERVER")))))
 
 (defvar *app*
   (lambda (env)
@@ -46,14 +51,15 @@
     (log:info "Successfully shut down server")
     (setf *http-server* nil)))
 
-(defun start-http-server (handler &key host port debug)
+(defun start-http-server (handler &key host port debug server)
   (let ((port (or port 8080)))
     (stop-http-server)
     (setf *http-server*
-          (clack:clackup handler :address host :port port :debug debug))
+          (clack:clackup handler :address host :port port :debug debug
+                                 :server server))
     (log:info "Successfully initialized server: ~a on port ~a" host port)))
 
-(defun start-app (&key (host "127.0.0.1") (port 5000) (debug t) (server "hunchentoot"))
+(defun start-app (&key (host "127.0.0.1") (port 5000) (debug t) (server :hunchentoot))
   "Starts the server, sets up logging"
   (if debug
       (log:config :debug)
@@ -73,7 +79,7 @@
         (start-app
          :port (ignore-errors
                 (parse-integer (uiop:getenv "APP_PORT")))
-         :server (ignore-errors (uiop:getenv "APP_SERVER"))
+         :server (read-from-string (ignore-errors (uiop:getenv "APP_SERVER")))
          :debug (equal "production" (ignore-errors (uiop:getenv "APP_ENV"))))
         ;; let the webserver run,
         ;; keep the server thread in the foreground:

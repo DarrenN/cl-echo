@@ -6,7 +6,7 @@ ARG PORT=5001
 
 ENV APP_ENV production
 ENV APP_PORT 5001
-EVN APP_SERVER woo
+ENV APP_SERVER woo
 
 RUN --mount=type=cache,target=/var/cache/apt --mount=type=cache,target=/var/lib/apt set -x; \
   apt-get update && apt-get -y install --no-install-recommends \
@@ -21,8 +21,8 @@ RUN ros -e '(ql:quickload :qlot/distify)'
 COPY . /app
 
 RUN qlot install
-RUN qlot exec ros -e "(ql:quickload :docker-cl-example)"
+RUN qlot exec ros -e "(ql:quickload :cl-echo)"
 
 EXPOSE ${PORT}
-ENTRYPOINT [".qlot/bin/clackup", "-s", "docker-cl-example", "app.lisp", "--debug", "nil", "--server", "woo", "--port", ${PORT}]
+ENTRYPOINT [".qlot/bin/clackup", "-s", "cl-echo", "src/app.lisp", "--debug", "nil", "--server", "woo", "--port", "5001"]
 CMD ["--address", "0.0.0.0"]
