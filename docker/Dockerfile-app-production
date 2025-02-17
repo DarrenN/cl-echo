@@ -7,6 +7,7 @@ ARG PORT=5001
 ENV APP_ENV production
 ENV APP_PORT 5001
 ENV APP_SERVER woo
+ENV APP_ADDRESS 0.0.0.0
 
 RUN --mount=type=cache,target=/var/cache/apt --mount=type=cache,target=/var/lib/apt set -x; \
   apt-get update && apt-get -y install --no-install-recommends \
@@ -24,5 +25,9 @@ RUN qlot install
 RUN qlot exec ros -e "(ql:quickload :cl-echo)"
 
 EXPOSE ${PORT}
-ENTRYPOINT [".qlot/bin/clackup", "-s", "cl-echo", "src/app.lisp", "--debug", "nil", "--server", "woo", "--port", "5001"]
-CMD ["--address", "0.0.0.0"]
+ENTRYPOINT .qlot/bin/clackup \
+           -s cl-echo "src/app.lisp" \
+           --debug nil \
+           --server $APP_SERVER \
+           --port $APP_PORT \
+           --address $APP_ADDRESS
