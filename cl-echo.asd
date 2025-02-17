@@ -12,8 +12,12 @@
                :serapeum)
   :components ((:module "src"
                 :components
-                ((:file "main"))))
+                ((:file "main")
+                 (:file "app" :depends-on ("main")))))
   :description "Common Lisp Echo Server"
+  :build-operation "program-op" ;; leave as is
+  :build-pathname "cl-echo-server"
+  :entry-point "cl-echo:main"
   :in-order-to ((test-op (test-op "cl-echo/tests"))))
 
 (defsystem "cl-echo/tests"

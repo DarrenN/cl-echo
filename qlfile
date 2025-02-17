@@ -1,0 +1,6 @@
+ql clack :latest
+ql alexandria :latest
+ql log4cl :latest
+ql serapeum :latest
+git njson https://github.com/atlas-engineer/njson
+git jzon https://github.com/Zulu-Inuoe/jzon

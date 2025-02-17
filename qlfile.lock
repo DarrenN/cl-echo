@@ -1,0 +1,28 @@
+("quicklisp" .
+ (:class qlot/source/dist:source-dist
+  :initargs (:distribution "https://beta.quicklisp.org/dist/quicklisp.txt" :%version :latest)
+  :version "2024-10-12"))
+("clack" .
+ (:class qlot/source/ql:source-ql
+  :initargs (:%version :latest)
+  :version "ql-2024-10-12"))
+("alexandria" .
+ (:class qlot/source/ql:source-ql
+  :initargs (:%version :latest)
+  :version "ql-2024-10-12"))
+("log4cl" .
+ (:class qlot/source/ql:source-ql
+  :initargs (:%version :latest)
+  :version "ql-2023-06-18"))
+("serapeum" .
+ (:class qlot/source/ql:source-ql
+  :initargs (:%version :latest)
+  :version "ql-2024-10-12"))
+("njson" .
+ (:class qlot/source/git:source-git
+  :initargs (:remote-url "https://github.com/atlas-engineer/njson")
+  :version "git-b8566457379f48ab3baf627f1cc3df76327fd631"))
+("jzon" .
+ (:class qlot/source/git:source-git
+  :initargs (:remote-url "https://github.com/Zulu-Inuoe/jzon")
+  :version "git-9ef348ad267095ced0815d61785ccf9a87cdefd4"))
