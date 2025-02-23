@@ -63,7 +63,11 @@ services:
       - caddy
 #+end_src
 
-** Installation
+** Todos
+
+- [ ] Build and run an executable in the image
+- [ ] Figure out how to shrink the image size
+- [ ] Switch from Debian to Alpine for smaller image sizes
 
 ** Author
 
