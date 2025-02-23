@@ -1,6 +1,6 @@
 services:
   app:
-    container_name: cl-echo
+    container_name: cl-echo-2
     build:
       dockerfile: docker/Dockerfile-app-production
       context: .

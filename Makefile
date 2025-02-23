@@ -2,19 +2,19 @@ all: build
 
 .PHONY: build
 build:
-	COMPOSE_DOCKER_CLI_BUILD=1 DOCKER_BUILDKIT=1 docker-compose build
+	COMPOSE_DOCKER_CLI_BUILD=1 DOCKER_BUILDKIT=1 docker compose build
 
 .PHONY: up
 up:
-	docker-compose up -V $(service)
+	docker compose up -V $(service)
 
 .PHONY: down
 down:
-	docker-compose down
+	docker compose down
 
 .PHONY: reload
 reload:
-	docker-compose kill -s HUP $(service)
+	docker compose kill -s HUP $(service)
 
 .PHONY: run-qlot-install qlot-install
 run-qlot-install:
