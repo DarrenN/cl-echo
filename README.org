@@ -10,20 +10,20 @@ You'll need Docker or something which can orchestrate containers from a Dockerfi
 
 You'll need to build the container and image on your local machine:
 
-```
+#+begin_src
 make build
-```
+#+end_src
 
 You can then start/stop it with:
 
-```
+#+begin_src
 make up
 make down
-```
+#+end_src
 
 To use with Docker Compose:
 
-```
+#+begin_src
 services:
   ###
   # REVERSE PROXY
@@ -61,7 +61,7 @@ services:
       - your.container.category=services
     networks:
       - caddy
-```
+#+end_src
 
 ** Installation
 
