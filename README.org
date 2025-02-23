@@ -21,7 +21,13 @@ make up
 make down
 #+end_src
 
-To use with Docker Compose:
+Once it's running you should be able to =curl= the container (or use a browser):
+
+#+begin_src
+curl http://127.0.0.1:5001
+#+end_src
+
+I wanted to know how to pack Lisp applications into Docker so I could drop them onto servers behind a reverse proxy. Here's an example Docker Compose file which does exactly that:
 
 #+begin_src
 services:
@@ -64,6 +70,8 @@ services:
 #+end_src
 
 ** Todos
+
+Right now the images this generates are *way* too big (~530 - 600MB). I'd like to find a way to significantly shrink that down.
 
 - [ ] Build and run an executable in the image
 - [ ] Figure out how to shrink the image size
