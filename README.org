@@ -2,6 +2,67 @@
 
 ** Usage
 
+Simple http server which echoes back requests it receives. Used to demo getting a Common Lisp application working in Docker.
+
+This project is heavily based on [[https://github.com/fukamachi/docker-cl-example/tree/master][docker-cl-example]]. I used that as a starting point to figure out how to package up a Lisp application in a Docker container.
+
+You'll need Docker or something which can orchestrate containers from a Dockerfile, such as Podman.
+
+You'll need to build the container and image on your local machine:
+
+```
+make build
+```
+
+You can then start/stop it with:
+
+```
+make up
+make down
+```
+
+To use with Docker Compose:
+
+```
+services:
+  ###
+  # REVERSE PROXY
+  ###
+  reverse-proxy: # https://github.com/caddyserver/caddy/releases
+    image: docker.io/library/caddy:alpine
+    container_name: caddy
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./caddy/data:/data
+      - ./caddy/config:/config
+      - ./caddy:/etc/caddy
+      - ./caddy/static:/static
+    restart: always
+    depends_on:
+      - cl-echo
+    labels:
+      - io.containers.autoupdate=registry
+      - your.container.category=proxy
+    networks:
+      - caddy
+
+  ###
+  # WEB SERVICES
+  ###
+  cl-echo:
+    image: cl-echo-app:latest
+    container_name: cl-echo
+    restart: always
+    environment:
+      APP_PORT: 80
+    labels:
+      - your.container.category=services
+    networks:
+      - caddy
+```
+
 ** Installation
 
 ** Author
